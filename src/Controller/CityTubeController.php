@@ -23,4 +23,12 @@ class CityTubeController extends ControllerBase {
   public function __construct() {
   }
 
+  /**
+   * Shows content.
+   *
+   */
+  public function content() {
+    return [];
+  }
+
 }

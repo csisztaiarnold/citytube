@@ -1,0 +1,15 @@
+citytube.content:
+  path: '/citytube'
+  defaults:
+    _controller: '\Drupal\citytube\Controller\CityTubeController::content'
+    _title: 'CityTube'
+  requirements:
+    _permission: 'access content'
+
+citytube.config:
+  path: '/admin/config/citytube/config'
+  defaults:
+    _form: '\Drupal\citytube\Form\CityTubeConfigForm'
+    _title: 'CityTube Configuration'
+  requirements:
+    _permission: 'administer site configuration'
