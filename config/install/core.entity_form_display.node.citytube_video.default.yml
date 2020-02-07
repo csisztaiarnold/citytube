@@ -1,0 +1,22 @@
+status: true
+dependencies:
+  config:
+    - field.field.node.citytube_video.body
+    - node.type.citytube_video
+  module:
+    - text
+    - user
+id: node.citytube_video.default
+targetEntityType: node
+bundle: citytube_video
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_textarea_with_summary
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+  links:
+    weight: 100
+hidden: {  }

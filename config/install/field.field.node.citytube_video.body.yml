@@ -1,0 +1,20 @@
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.citytube_video
+  module:
+    - text
+id: node.citytube_video.body
+field_name: body
+entity_type: node
+bundle: citytube_video
+label: 'CityTube Video'
+description: 'A CityTube video type.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+field_type: text_with_summary
