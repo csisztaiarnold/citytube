@@ -6,6 +6,14 @@ citytube.content:
   requirements:
     _permission: 'access content'
 
+citytube.manual_api_call:
+  path: '/citytube/manual_api_call'
+  defaults:
+    _controller: '\Drupal\citytube\Controller\CityTubeController::manualApiCallAction'
+    _title: 'CityTube - Manual API Call'
+  requirements:
+    _permission: 'administer site configuration'
+
 citytube.config:
   path: '/admin/config/citytube/config'
   defaults:

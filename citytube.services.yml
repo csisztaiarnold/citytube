@@ -1,0 +1,4 @@
+services:
+  citytube.youtubeapisearch_services:
+    class: \Drupal\citytube\Services\YouTubeApiSearchService
+    arguments: ["@config.factory"]
