@@ -53,7 +53,7 @@ class YoutubeApiSearchService {
           'part' => 'snippet',
           'type' => 'video',
           'order' => 'date',
-          'maxResults' => $max_results ?? '30',
+          'maxResults' => !empty($max_results) ? $max_results : '30',
           'key' => $yt_api_key,
         ];
 
@@ -69,12 +69,9 @@ class YoutubeApiSearchService {
         $search_query_by_keyword = $this->keyValueImplode(array_merge($search, $search_by_keyword));
         $search_query_by_location = $this->keyValueImplode(array_merge($search, $search_by_location));
 
-        $video_list_by_keyword_search = $this->curlCall($yt_api_url . '?' . $search_query_by_keyword);
-        $video_list_by_location_search = $this->curlCall($yt_api_url . '?' . $search_query_by_location);
-
         $video_list[$location_data[0]] = [
-          array_merge($video_list_by_keyword_search,
-            $video_list_by_location_search),
+          'results_by_keyword' => $this->curlCall($yt_api_url . '?' . $search_query_by_keyword),
+          'results_by_location' => $this->curlCall($yt_api_url . '?' . $search_query_by_location),
         ];
       }
       return $video_list;
@@ -89,7 +86,7 @@ class YoutubeApiSearchService {
    *
    * @return mixed
    */
-  public function curlCall(string $url): array {
+  public function curlCall(string $url) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
