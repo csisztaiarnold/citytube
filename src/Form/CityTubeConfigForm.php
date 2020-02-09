@@ -37,6 +37,14 @@ class CityTubeConfigForm extends ConfigFormBase {
     $form = parent::buildForm($form, $form_state);
     $config = $this->config('citytube.settings');
 
+    $form['yt_api_url'] = [
+      '#type' => 'textfield',
+      '#title' => t('YouTube API URL'),
+      '#default_value' => $config->get('yt_api_url') ?? 'https://www.googleapis.com/youtube/v3/search',
+      '#required' => TRUE,
+      '#description' => t('Visit https://developers.google.com/youtube/v3/docs/search/list#http-request for more information.'),
+    ];
+
     $form['yt_api_key'] = [
       '#type' => 'textfield',
       '#title' => t('YouTube API key'),
@@ -54,10 +62,10 @@ class CityTubeConfigForm extends ConfigFormBase {
 
     $form['locations'] = [
       '#type' => 'textarea',
-      '#title' => t('Locations'),
+      '#title' => t('Locations (location_name|lat,lng|search_radius)'),
       '#default_value' => $config->get('locations'),
       '#required' => TRUE,
-      '#description' => t('Every location should go to a new line, location name, coordinates and search radius should be separated by the pipe character (|). Latitude and longitude should be separated by comma (,).'),
+      '#description' => t('Every location should go to a new line. Location name, coordinates and search radius should be separated by the pipe character (|). Latitude and longitude should be separated by comma (,).'),
     ];
 
     return $form;
@@ -68,6 +76,7 @@ class CityTubeConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('citytube.settings');
+    $config->set('yt_api_url', $form_state->getValue('yt_api_url'));
     $config->set('yt_api_key', $form_state->getValue('yt_api_key'));
     $config->set('max_results', $form_state->getValue('max_results'));
     $config->set('locations', $form_state->getValue('locations'));

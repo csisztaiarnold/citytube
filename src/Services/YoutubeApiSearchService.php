@@ -36,12 +36,15 @@ class YoutubeApiSearchService {
   }
 
   /**
-   *
+   * Gets the video list from the YouTube API.
    */
   public function getVideoList() {
     $config = $this->configFactory->get('citytube.settings');
+    $yt_api_url = $config->get('yt_api_url');
     $yt_api_key = $config->get('yt_api_key');
+    $max_results = $config->get('max_results');
     if (!empty($config->get('locations'))) {
+      $video_list = [];
       foreach (explode("\n", $config->get('locations')) as $location) {
         $location_data = explode('|', $location);
 
@@ -50,7 +53,8 @@ class YoutubeApiSearchService {
           'part' => 'snippet',
           'type' => 'video',
           'order' => 'date',
-          'maxResults' => $config->get('max_results') ?? '30',
+          'maxResults' => $max_results ?? '30',
+          'key' => $yt_api_key,
         ];
 
         $search_by_keyword = [
@@ -62,11 +66,18 @@ class YoutubeApiSearchService {
           'locationRadius' => $location_data[2] . 'km',
         ];
 
-        $search_query_by_keyword = $this->keyValueImplode(array_merge($search,
-          $search_by_keyword));
-        $search_query_by_location = $this->keyValueImplode(array_merge($search,
-          $search_by_location));
+        $search_query_by_keyword = $this->keyValueImplode(array_merge($search, $search_by_keyword));
+        $search_query_by_location = $this->keyValueImplode(array_merge($search, $search_by_location));
+
+        $video_list_by_keyword_search = $this->curlCall($yt_api_url . '?' . $search_query_by_keyword);
+        $video_list_by_location_search = $this->curlCall($yt_api_url . '?' . $search_query_by_location);
+
+        $video_list[$location_data[0]] = [
+          array_merge($video_list_by_keyword_search,
+            $video_list_by_location_search),
+        ];
       }
+      return $video_list;
     }
   }
 
@@ -78,9 +89,8 @@ class YoutubeApiSearchService {
    *
    * @return mixed
    */
-  private function curlCall(string $url) {
+  public function curlCall(string $url): array {
     $ch = curl_init();
-
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $url);
@@ -88,8 +98,8 @@ class YoutubeApiSearchService {
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     $response = curl_exec($ch);
-
     curl_close($ch);
+
     $data = json_decode($response);
     $value = json_decode(json_encode($data), TRUE);
 

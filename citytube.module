@@ -1,0 +1,29 @@
+<?php
+
+use \Drupal\citytube\Services\YoutubeApiSearchService;
+use \Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function citytube_form_citytube_config_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#validate'][] = 'citytube_form_citytube_config_form_validate';
+}
+
+/**
+ * Validates the YouTube API key.
+ *
+ * @param  array  $form
+ * @param  \Drupal\Core\Form\FormStateInterface  $form_state
+ */
+function citytube_form_citytube_config_form_validate(array &$form, FormStateInterface $form_state) {
+  $config = \Drupal::config('citytube.settings');
+  if ($form_state->hasValue('yt_api_key')) {
+    $yotubeApiKey = $form_state->getValue('yt_api_key');
+    $api_call = YoutubeApiSearchService::curlCall($config->get('yt_api_url') . '?part=snippet&key=' . $yotubeApiKey);
+    if (isset($api_call['error'])) {
+      $form_state->setErrorByName('yt_api_key',
+        t('API Error: ') . $api_call['error']['code'] . ' ' . $api_call['error']['message']);
+    }
+  }
+}
