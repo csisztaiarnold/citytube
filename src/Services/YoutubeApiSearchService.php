@@ -63,7 +63,7 @@ class YoutubeApiSearchService {
 
         $search_by_location = [
           'location' => $location_data[1],
-          'locationRadius' => $location_data[2] . 'km',
+          'locationRadius' => trim($location_data[2]) . 'km',
         ];
 
         $search_query_by_keyword = $this->keyValueImplode(array_merge($search, $search_by_keyword));
