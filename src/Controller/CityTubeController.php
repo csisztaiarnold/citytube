@@ -8,6 +8,7 @@ namespace Drupal\citytube\Controller;
 
 use \Drupal\citytube\Services\YoutubeApiSearchService;
 use \Drupal\Core\Controller\ControllerBase;
+use \Drupal\Core\Entity\EntityTypeManagerInterface;
 use \Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -22,24 +23,36 @@ final class CityTubeController extends ControllerBase {
    *
    * @var \Drupal\citytube\Services\YoutubeApiSearchService
    */
-  private $youtubeApiSearchService;
+  protected $youtubeApiSearchService;
+
+  /**
+   * The entity type manager.
+   *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   */
+  protected $entityTypeManager;
 
   /**
    * CityTube constructor.
    *
-   * @param  \Drupal\citytube\Services\YoutubeApiSearchService  $youtubeApiSearchService
-   * The weather service.
+   * @param  \Drupal\citytube\Services\YoutubeApiSearchService  $youtube_api_search_service
+   *   The YouTube Search API service.
+   * @param  \Drupal\Core\Entity\EntityTypeManagerInterface  $entity_type_manager
+   *   The entity type manager service.
    */
-  public function __construct(YoutubeApiSearchService $youtubeApiSearchService) {
-    $this->youtubeApiSearchService = $youtubeApiSearchService;
+  public function __construct(YoutubeApiSearchService $youtube_api_search_service, EntityTypeManagerInterface $entity_type_manager) {
+    $this->youtubeApiSearchService = $youtube_api_search_service;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
   /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
-    $youtubeApiSearchService = $container->get('citytube.youtubeapisearch_services');
-    return new static($youtubeApiSearchService);
+    return new static(
+      $container->get('citytube.youtubeapisearch_services'),
+      $container->get('entity_type.manager')
+    );
   }
 
   /**
@@ -47,7 +60,11 @@ final class CityTubeController extends ControllerBase {
    *
    */
   public function content() {
-    return [];
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $node = $node_storage->load(1);
+    return [
+      '#markup' => $node->getTitle(),
+    ];
   }
 
   /**
