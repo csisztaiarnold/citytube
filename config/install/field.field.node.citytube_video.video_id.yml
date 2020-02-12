@@ -1,0 +1,20 @@
+status: true
+dependencies:
+  config:
+    - field.storage.node.video_id
+    - node.type.citytube_video
+  module:
+    - text
+id: node.citytube_video.video_id
+field_name: video_id
+entity_type: node
+bundle: citytube_video
+label: 'Video ID'
+description: 'The YouTube video ID'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+field_type: text

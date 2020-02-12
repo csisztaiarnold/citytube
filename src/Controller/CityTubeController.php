@@ -60,10 +60,17 @@ final class CityTubeController extends ControllerBase {
    *
    */
   public function content() {
+    /*
+    // Creates a node.
     $node_storage = $this->entityTypeManager->getStorage('node');
-    $node = $node_storage->load(1);
+    $node = $node_storage->create([
+      'type' => 'citytube_video',
+      'title' => 'Just a citytube video',
+    ]);
+    $node_storage->save($node);
+    */
     return [
-      '#markup' => $node->getTitle(),
+      '#markup' => '',
     ];
   }
 

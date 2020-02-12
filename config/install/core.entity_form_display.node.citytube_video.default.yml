@@ -2,6 +2,7 @@ status: true
 dependencies:
   config:
     - field.field.node.citytube_video.body
+    - field.field.node.citytube_video.video_id
     - node.type.citytube_video
   module:
     - text
@@ -11,11 +12,28 @@ targetEntityType: node
 bundle: citytube_video
 mode: default
 content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    settings: {  }
+    third_party_settings: {  }
   body:
     label: hidden
     type: text_textarea_with_summary
     weight: 101
     settings: {  }
+    third_party_settings: {  }
+  video_id:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: string
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
     third_party_settings: {  }
   links:
     weight: 100

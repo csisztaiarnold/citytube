@@ -2,6 +2,7 @@ status: true
 dependencies:
   config:
     - field.field.node.citytube_video.body
+    - field.field.node.citytube_video.video_id
     - node.type.citytube_video
   module:
     - text
@@ -17,6 +18,12 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+  video_id:
+    weight: 103
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: string
   links:
     weight: 100
 hidden: {  }
