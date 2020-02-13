@@ -28,8 +28,9 @@ content:
     label: above
     settings: {  }
     third_party_settings: {  }
-    type: string
+    type: string_textfield
   sticky:
+    weight: 104
     type: boolean_checkbox
     settings:
       display_label: true
