@@ -2,8 +2,8 @@ status: true
 dependencies:
   module:
     - node
-id: node.video_id
-field_name: video_id
+id: node.channel
+field_name: channel
 entity_type: node
 type: string
 settings:

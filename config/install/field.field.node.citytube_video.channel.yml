@@ -1,14 +1,14 @@
 status: true
 dependencies:
   config:
-    - field.storage.node.video_id
+    - field.storage.node.channel
     - node.type.citytube_video
-id: node.citytube_video.video_id
-field_name: video_id
+id: node.citytube_video.channel
+field_name: channel
 entity_type: node
 bundle: citytube_video
-label: 'Video ID'
-description: 'The YouTube video ID'
+label: 'Channel name'
+description: 'The YouTube channel name'
 required: false
 translatable: false
 default_value: {  }

@@ -3,6 +3,7 @@ dependencies:
   config:
     - field.field.node.citytube_video.body
     - field.field.node.citytube_video.video_id
+    - field.field.node.citytube_video.channel
     - node.type.citytube_video
   module:
     - text
