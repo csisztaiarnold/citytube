@@ -41,6 +41,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
+  thumbnail_url:
+    weight: 106
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: string_textfield
   links:
     weight: 100
 hidden: {  }
