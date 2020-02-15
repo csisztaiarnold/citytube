@@ -8,7 +8,7 @@ field_name: channel_id
 entity_type: node
 bundle: citytube_video
 label: 'Channel ID'
-description: 'The YouTube channel ID'
+description: 'The YouTube channel ID.'
 required: false
 translatable: false
 default_value: {  }

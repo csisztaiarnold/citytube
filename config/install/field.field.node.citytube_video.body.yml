@@ -9,8 +9,8 @@ id: node.citytube_video.body
 field_name: body
 entity_type: node
 bundle: citytube_video
-label: 'CityTube Video Content'
-description: 'A CityTube video type.'
+label: 'Description'
+description: 'The video description.'
 required: false
 translatable: true
 default_value: {  }
