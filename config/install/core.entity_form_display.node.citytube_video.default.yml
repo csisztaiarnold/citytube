@@ -35,12 +35,12 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
-  sticky:
+  channel_id:
     weight: 105
-    type: boolean_checkbox
-    settings:
-      display_label: true
+    label: above
+    settings: {  }
     third_party_settings: {  }
+    type: string_textfield
   links:
     weight: 100
 hidden: {  }
