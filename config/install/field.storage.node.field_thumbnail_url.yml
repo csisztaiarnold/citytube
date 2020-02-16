@@ -5,8 +5,8 @@ dependencies:
   enforced:
     module:
       - citytube
-id: node.channel
-field_name: channel
+id: node.field_thumbnail_url
+field_name: field_thumbnail_url
 entity_type: node
 type: string
 settings:

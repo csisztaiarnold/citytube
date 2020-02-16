@@ -1,10 +1,10 @@
 status: true
 dependencies:
   config:
-    - field.storage.node.video_id
+    - field.storage.node.field_video_id
     - node.type.citytube_video
-id: node.citytube_video.video_id
-field_name: video_id
+id: node.citytube_video.field_video_id
+field_name: field_video_id
 entity_type: node
 bundle: citytube_video
 label: 'Video ID'

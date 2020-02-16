@@ -1,14 +1,14 @@
 status: true
 dependencies:
   config:
-    - field.storage.node.thumbnail_url
+    - field.storage.node.field_channel_id
     - node.type.citytube_video
-id: node.citytube_video.thumbnail_url
-field_name: thumbnail_url
+id: node.citytube_video.channel_id
+field_name: field_channel_id
 entity_type: node
 bundle: citytube_video
-label: 'Thumbnail URL'
-description: 'The YouTube video thumbnail.'
+label: 'Channel ID'
+description: 'The YouTube channel ID.'
 required: false
 translatable: false
 default_value: {  }

@@ -2,11 +2,16 @@ status: true
 dependencies:
   config:
     - field.field.node.citytube_video.body
-    - field.field.node.citytube_video.video_id
+    - field.field.node.citytube_video.field_channel
+    - field.field.node.citytube_video.field_channel_id
+    - field.field.node.citytube_video.field_published
+    - field.field.node.citytube_video.field_thumbnail_url
+    - field.field.node.citytube_video.field_video_id
     - node.type.citytube_video
   module:
+    - datetime
+    - path
     - text
-    - user
 id: node.citytube_video.default
 targetEntityType: node
 bundle: citytube_video
@@ -23,30 +28,43 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
-  video_id:
+  field_published:
+    weight: 121
+    settings: {  }
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_video_id:
     weight: 103
     label: above
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
-  channel:
+  field_channel:
     weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
-  channel_id:
+  field_channel_id:
     weight: 105
     label: above
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
-  thumbnail_url:
+  field_thumbnail_url:
     weight: 106
     label: above
     settings: {  }
     third_party_settings: {  }
     type: string_textfield
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 16
+    region: content
+    third_party_settings: {  }
   links:
     weight: 100
 hidden: {  }

@@ -1,0 +1,22 @@
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_published
+    - node.type.citytube_video
+  module:
+    - datetime
+id: node.citytube_video.field_published
+field_name: field_published
+entity_type: node
+bundle: citytube_video
+label: 'Published'
+description: 'The YouTube video publishing time.'
+required: false
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+default_value_callback: ''
+settings: {  }
+field_type: datetime
