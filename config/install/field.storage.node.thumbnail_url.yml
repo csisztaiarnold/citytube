@@ -2,6 +2,9 @@ status: true
 dependencies:
   module:
     - node
+  enforced:
+    module:
+      - citytube
 id: node.thumbnail_url
 field_name: thumbnail_url
 entity_type: node

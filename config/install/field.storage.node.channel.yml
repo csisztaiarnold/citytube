@@ -2,6 +2,9 @@ status: true
 dependencies:
   module:
     - node
+  enforced:
+    module:
+      - citytube
 id: node.channel
 field_name: channel
 entity_type: node
