@@ -22,7 +22,7 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
-  video_id:
+  field_video_id:
     weight: 103
     label: above
     settings: {  }
