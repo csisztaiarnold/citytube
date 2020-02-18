@@ -1,4 +1,4 @@
 services:
   citytube.youtubeapisearch_services:
-    class: \Drupal\citytube\Services\YouTubeApiSearchService
+    class: Drupal\citytube\Services\YoutubeApiSearchService
     arguments: ["@config.factory"]

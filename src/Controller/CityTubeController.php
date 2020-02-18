@@ -60,20 +60,7 @@ final class CityTubeController extends ControllerBase {
    *
    */
   public function content() {
-    /*
-    // Creates a node.
-    $node_storage = $this->entityTypeManager->getStorage('node');
-    $node = $node_storage->create([
-      'type' => 'citytube_video',
-      'title' => 'Just a citytube video',
-      'body' => 'This is the body',
-      'field_video_id' => 'video id',
-      'field_channel' => 'channel name',
-      'field_channel_id' => 'channel id',
-      'field_thumbnail_url' => 'thumbnail_url',
-    ]);
-    $node_storage->save($node);
-    */
+    // $this->youtubeApiSearchService->populateNodes();
     return [
       '#markup' => '',
     ];

@@ -36,7 +36,30 @@ class YoutubeApiSearchService {
   }
 
   /**
+   * Populate the nodes with the video data.
+   *
+   */
+  public function populateNodes() {
+    /*
+    // Creates a node.
+    $node_storage = $this->entityTypeManager->getStorage('node');
+    $node = $node_storage->create([
+      'type' => 'citytube_video',
+      'title' => 'Just a citytube video',
+      'body' => 'This is the body',
+      'field_video_id' => 'video id',
+      'field_channel' => 'channel name',
+      'field_channel_id' => 'channel id',
+      'field_thumbnail_url' => 'thumbnail_url',
+      'field_published' => '2012-04-18T12:24:16',
+    ]);
+    $node_storage->save($node);
+    */
+  }
+
+  /**
    * Gets the video list from the YouTube API.
+   *
    */
   public function getVideoList() {
     $config = $this->configFactory->get('citytube.settings');
@@ -91,11 +114,17 @@ class YoutubeApiSearchService {
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FAILONERROR, true);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
     $response = curl_exec($ch);
-    curl_close($ch);
+    if (curl_errno($ch)) {
+      // TODO: Log this error message.
+      $error_msg = curl_error($ch);
+    }
+    curl_close ($ch);
+
 
     $data = json_decode($response);
     $value = json_decode(json_encode($data), TRUE);
