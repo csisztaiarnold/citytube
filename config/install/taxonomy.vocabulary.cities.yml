@@ -1,0 +1,9 @@
+status: true
+dependencies:
+  enforced:
+    module:
+      - citytube
+name: Cities
+vid: cities
+description: 'The cities taxonomy for the CityTube module.'
+weight: 0
