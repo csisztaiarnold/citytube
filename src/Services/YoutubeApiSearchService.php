@@ -3,6 +3,7 @@
 namespace Drupal\citytube\Services;
 
 use \Drupal\Core\Config\ConfigFactory;
+use \Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class YoutubeApiSearchService
@@ -14,25 +15,54 @@ class YoutubeApiSearchService {
   /**
    * The configuration factory.
    *
-   * @var \Drupal\Core\Config\ConfigFactory
+   * @var ConfigFactory
    */
   private $configFactory;
 
   /**
-   * The Google API search endpoint url.
+   * The entity type manager.
    *
+   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
-  private $googleApiSearchEndpointUrl = 'https://www.googleapis.com/youtube/v3/search';
+  protected $entityTypeManager;
 
   /**
    * YoutubeApiSearchService constructor.
    *
-   * @param  \Drupal\Core\Config\ConfigFactory  $configFactory
+   * @param ConfigFactory $configFactory
    * The configuration factory.
-   *
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * The entity type manager.
    */
-  public function __construct(ConfigFactory $configFactory) {
+  public function __construct(ConfigFactory $configFactory, EntityTypeManagerInterface $entityTypeManager) {
     $this->configFactory = $configFactory;
+    $this->entityTypeManager = $entityTypeManager;
+  }
+
+  /**
+   * Creates a term if it doesn't exists.
+   *
+   * @param string $term_name
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function populateTerms(string $term_name): void {
+    // Term exists?
+    $term = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadByProperties([
+          'name' => $term_name,
+        ]
+      );
+    if (count($term) === 0) {
+      $term = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->create([
+          'vid' => 'cities',
+          'name' => $term_name,
+        ]);
+      $term->save();
+    }
   }
 
   /**
@@ -70,7 +100,8 @@ class YoutubeApiSearchService {
       $video_list = [];
       foreach (explode("\n", $config->get('locations')) as $location) {
         $location_data = explode('|', $location);
-
+        $city_name = $location_data[0];
+        $this->populateTerms($city_name);
         $search = [
           'q' => '',
           'part' => 'snippet',
@@ -81,7 +112,7 @@ class YoutubeApiSearchService {
         ];
 
         $search_by_keyword = [
-          'q' => $location_data[0],
+          'q' => $city_name,
         ];
 
         $search_by_location = [
@@ -114,7 +145,7 @@ class YoutubeApiSearchService {
     curl_setopt($ch, CURLOPT_HEADER, 0);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_FAILONERROR, true);
+    curl_setopt($ch, CURLOPT_FAILONERROR, TRUE);
     curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
     curl_setopt($ch, CURLOPT_VERBOSE, 0);
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -123,7 +154,7 @@ class YoutubeApiSearchService {
       // TODO: Log this error message.
       $error_msg = curl_error($ch);
     }
-    curl_close ($ch);
+    curl_close($ch);
 
 
     $data = json_decode($response);
@@ -135,7 +166,7 @@ class YoutubeApiSearchService {
   /**
    * Implodes key and value of an array.
    *
-   * @param  array  $array
+   * @param array $array
    *
    * @return string
    */

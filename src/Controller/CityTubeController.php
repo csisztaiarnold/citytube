@@ -21,7 +21,7 @@ final class CityTubeController extends ControllerBase {
   /**
    * The YouTube API Search service.
    *
-   * @var \Drupal\citytube\Services\YoutubeApiSearchService
+   * @var YoutubeApiSearchService
    */
   protected $youtubeApiSearchService;
 
@@ -35,9 +35,9 @@ final class CityTubeController extends ControllerBase {
   /**
    * CityTube constructor.
    *
-   * @param  \Drupal\citytube\Services\YoutubeApiSearchService  $youtube_api_search_service
+   * @param YoutubeApiSearchService $youtube_api_search_service
    *   The YouTube Search API service.
-   * @param  \Drupal\Core\Entity\EntityTypeManagerInterface  $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
    */
   public function __construct(YoutubeApiSearchService $youtube_api_search_service, EntityTypeManagerInterface $entity_type_manager) {
@@ -60,7 +60,6 @@ final class CityTubeController extends ControllerBase {
    *
    */
   public function content() {
-    // $this->youtubeApiSearchService->populateNodes();
     return [
       '#markup' => '',
     ];
