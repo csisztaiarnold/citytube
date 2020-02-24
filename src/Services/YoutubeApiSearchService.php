@@ -4,6 +4,7 @@ namespace Drupal\citytube\Services;
 
 use \Drupal\Core\Config\ConfigFactory;
 use \Drupal\Core\Entity\EntityTypeManagerInterface;
+use \Drupal\Core\State\StateInterface;
 
 /**
  * Class YoutubeApiSearchService
@@ -27,16 +28,26 @@ class YoutubeApiSearchService {
   protected $entityTypeManager;
 
   /**
+   * The state storage service.
+   *
+   * @var \Drupal\Core\State\StateInterface
+   */
+  protected $state;
+
+  /**
    * YoutubeApiSearchService constructor.
    *
    * @param ConfigFactory $configFactory
    * The configuration factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    * The entity type manager.
+   * @param \Drupal\Core\State\StateInterface $state
+   * The state storage service.
    */
-  public function __construct(ConfigFactory $configFactory, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(ConfigFactory $configFactory, EntityTypeManagerInterface $entityTypeManager, StateInterface $state) {
     $this->configFactory = $configFactory;
     $this->entityTypeManager = $entityTypeManager;
+    $this->state = $state;
   }
 
   /**
@@ -93,8 +104,8 @@ class YoutubeApiSearchService {
    */
   public function getVideoList() {
     $config = $this->configFactory->get('citytube.settings');
+    $yt_api_key = $this->state->get('yt_api_key');
     $yt_api_url = $config->get('yt_api_url');
-    $yt_api_key = $config->get('yt_api_key');
     $max_results = $config->get('max_results');
     if (!empty($config->get('locations'))) {
       $video_list = [];

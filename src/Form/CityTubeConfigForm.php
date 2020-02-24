@@ -9,6 +9,8 @@ namespace Drupal\citytube\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\State\StateInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class CityTubeConfigForm
@@ -18,9 +20,29 @@ use Drupal\Core\Form\FormStateInterface;
 class CityTubeConfigForm extends ConfigFormBase {
 
   /**
-   * CityTubeConfigForm constructor.
+   * The Drupal state storage service.
+   *
+   * @var \Drupal\Core\State\StateInterface
    */
-  public function __construct() {
+  protected $state;
+
+  /**
+   * CityTubeConfigForm constructor.
+   *
+   * @param \Drupal\Core\State\StateInterface $state
+   *   The state service.
+   */
+  public function __construct(StateInterface $state) {
+    $this->state = $state;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('state')
+    );
   }
 
   /**
@@ -48,7 +70,7 @@ class CityTubeConfigForm extends ConfigFormBase {
     $form['yt_api_key'] = [
       '#type' => 'textfield',
       '#title' => t('YouTube API key'),
-      '#default_value' => $config->get('yt_api_key'),
+      '#default_value' => $this->state->get('yt_api_key'),
       '#required' => TRUE,
       '#description' => t('To get your API key, check https://developers.google.com/youtube/v3/getting-started for more information.'),
     ];
@@ -77,11 +99,10 @@ class CityTubeConfigForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $config = $this->config('citytube.settings');
     $config->set('yt_api_url', $form_state->getValue('yt_api_url'));
-    $config->set('yt_api_key', $form_state->getValue('yt_api_key'));
     $config->set('max_results', $form_state->getValue('max_results'));
     $config->set('locations', $form_state->getValue('locations'));
     $config->save();
-
+    $this->state->set('yt_api_key', $form_state->getValue('yt_api_key'));
     return parent::submitForm($form, $form_state);
   }
 
