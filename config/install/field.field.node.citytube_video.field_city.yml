@@ -1,0 +1,27 @@
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_city
+    - node.type.citytube_video
+    - taxonomy.vocabulary.cities
+id: node.citytube_video.field_city
+field_name: field_city
+entity_type: node
+bundle: citytube_video
+label: City
+description: 'The video city'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      cities: cities
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

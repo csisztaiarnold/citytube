@@ -4,6 +4,7 @@ dependencies:
     - field.field.node.citytube_video.body
     - field.field.node.citytube_video.field_channel
     - field.field.node.citytube_video.field_channel_id
+    - field.field.node.citytube_video.field_city
     - field.field.node.citytube_video.field_published
     - field.field.node.citytube_video.field_thumbnail_url
     - field.field.node.citytube_video.field_video_id
@@ -28,6 +29,16 @@ content:
     weight: 101
     settings: {  }
     third_party_settings: {  }
+  field_city:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_published:
     weight: 121
     settings: {  }
