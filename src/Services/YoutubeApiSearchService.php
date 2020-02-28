@@ -2,9 +2,9 @@
 
 namespace Drupal\citytube\Services;
 
-use \Drupal\Core\Config\ConfigFactory;
-use \Drupal\Core\Entity\EntityTypeManagerInterface;
-use \Drupal\Core\State\StateInterface;
+use Drupal\Core\Config\ConfigFactory;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\State\StateInterface;
 
 /**
  * Class YoutubeApiSearchService

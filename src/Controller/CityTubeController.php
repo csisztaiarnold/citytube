@@ -6,10 +6,10 @@
 
 namespace Drupal\citytube\Controller;
 
-use \Drupal\citytube\Services\YoutubeApiSearchService;
-use \Drupal\Core\Controller\ControllerBase;
-use \Drupal\Core\Entity\EntityTypeManagerInterface;
-use \Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\citytube\Services\YoutubeApiSearchService;
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class CityTubeController
