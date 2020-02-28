@@ -8,7 +8,7 @@ field_name: field_thumbnail_url
 entity_type: node
 bundle: citytube_video
 label: 'Thumbnail URL'
-description: 'The YouTube video thumbnail.'
+description: 'The YouTube video thumbnail'
 required: false
 translatable: false
 default_value: {  }

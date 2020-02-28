@@ -9,7 +9,8 @@ A Drupal module for displaying videos from YouTube which are related to a specif
 ## TODO
  
 - Populating the nodes
-- Configuration link on the module list
+- Retrieving older results (next page token)
+- ~~Configuration link on the module list~~
 - Frontend
   - Page layout
   - Menu

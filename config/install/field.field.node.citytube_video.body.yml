@@ -10,7 +10,7 @@ field_name: body
 entity_type: node
 bundle: citytube_video
 label: 'Description'
-description: 'The video description.'
+description: 'The video description'
 required: false
 translatable: true
 default_value: {  }

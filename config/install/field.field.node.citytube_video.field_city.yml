@@ -9,7 +9,7 @@ field_name: field_city
 entity_type: node
 bundle: citytube_video
 label: City
-description: 'The video city'
+description: 'The video city name'
 required: false
 translatable: false
 default_value: {  }
