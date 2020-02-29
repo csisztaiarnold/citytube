@@ -79,41 +79,65 @@ class YoutubeApiSearchService {
   /**
    * Populate the nodes with the video data.
    *
+   * @return array
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function populateNodes() {
-    foreach ($this->getVideoList() as $key => $value) {
-      // Check which city this video is connected to.
-      $terms = $this->entityTypeManager->getStorage('taxonomy_term')
-        ->loadByProperties([
-            'name' => $key,
-          ]
-        );
-      $term = reset($terms);
-      foreach ($value[0]['items'] as $item) {
-        $video_exists = $this->entityTypeManager->getStorage('node')
+  public function populateNodes(): array {
+    if ($this->getVideoList()) {
+      $new_video_count = 0;
+      foreach ($this->getVideoList() as $key => $value) {
+        if(isset($value[0]['error'])) {
+          return [
+            'api_call' => $value[0]['error']['message'],
+            'new_videos' => 0,
+          ];
+        }
+        // Check which city this video is connected to.
+        $terms = $this->entityTypeManager->getStorage('taxonomy_term')
           ->loadByProperties([
-              'field_video_id' => $item['id']['videoId'],
+              'name' => $key,
             ]
           );
-        if (empty($video_exists)) {
-          $node_data = [
-            'type' => 'citytube_video',
-            'title' => $item['snippet']['title'],
-            'body' => $item['snippet']['description'],
-            'field_video_id' => $item['id']['videoId'],
-            'field_channel' => $item['snippet']['channelTitle'],
-            'field_channel_id' => $item['snippet']['channelId'],
-            'field_thumbnail_url' => $item['snippet']['thumbnails']['high']['url'],
-            'field_published' => substr($item['snippet']['publishedAt'], 0, -5),
-            'field_city' => [
-              'target_id' => $term->id(),
-            ],
-          ];
-          $node_storage = $this->entityTypeManager->getStorage('node');
-          $node = $node_storage->create($node_data);
-          $node_storage->save($node);
+        $term = reset($terms);
+        foreach ($value[0]['items'] as $item) {
+          $video_exists = $this->entityTypeManager->getStorage('node')
+            ->loadByProperties([
+                'field_video_id' => $item['id']['videoId'],
+              ]
+            );
+          if (empty($video_exists)) {
+            $node_data = [
+              'type' => 'citytube_video',
+              'title' => $item['snippet']['title'],
+              'body' => $item['snippet']['description'],
+              'field_video_id' => $item['id']['videoId'],
+              'field_channel' => $item['snippet']['channelTitle'],
+              'field_channel_id' => $item['snippet']['channelId'],
+              'field_thumbnail_url' => $item['snippet']['thumbnails']['high']['url'],
+              'field_published' => substr($item['snippet']['publishedAt'], 0, -5),
+              'field_city' => [
+                'target_id' => $term->id(),
+              ],
+            ];
+            $node_storage = $this->entityTypeManager->getStorage('node');
+            $node = $node_storage->create($node_data);
+            $node_storage->save($node);
+            $new_video_count++;
+          }
         }
       }
+      return [
+        'api_call' => 'success',
+        'new_videos' => $new_video_count,
+      ];
+    }
+    else {
+      return [
+        'api_call' => 'error',
+        'new_videos' => 0,
+      ];
     }
   }
 
@@ -121,7 +145,7 @@ class YoutubeApiSearchService {
    * Gets the video list from the YouTube API.
    *
    */
-  public function getVideoList() {
+  public function getVideoList(): array {
     $config = $this->configFactory->get('citytube.settings');
     $yt_api_key = $this->state->get('yt_api_key');
     $yt_api_url = $config->get('yt_api_url');
@@ -140,19 +164,15 @@ class YoutubeApiSearchService {
           'maxResults' => !empty($max_results) ? $max_results : '30',
           'key' => $yt_api_key,
         ];
-
         $search_by_keyword = [
           'q' => $city_name,
         ];
-
         $search_by_location = [
           'location' => $location_data[1],
           'locationRadius' => trim($location_data[2]) . 'km',
         ];
-
         $search_query_by_keyword = $this->keyValueImplode(array_merge($search, $search_by_keyword));
         $search_query_by_location = $this->keyValueImplode(array_merge($search, $search_by_location));
-
         $video_list[$location_data[0]] = [
           array_merge(
             $this->curlCall($yt_api_url . '?' . $search_query_by_keyword),
@@ -162,6 +182,7 @@ class YoutubeApiSearchService {
       }
       return $video_list;
     }
+    return [];
   }
 
 

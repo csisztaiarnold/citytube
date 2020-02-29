@@ -12,7 +12,7 @@ citytube.manual_api_call:
     _controller: '\Drupal\citytube\Controller\CityTubeController::manualApiCallAction'
     _title: 'CityTube - Manual API Call'
   requirements:
-    _permission: 'administer site configuration'
+    _role: 'administrator'
 
 citytube.config:
   path: '/admin/config/citytube/config'

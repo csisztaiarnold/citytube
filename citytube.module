@@ -23,7 +23,7 @@ function citytube_form_citytube_config_form_validate(array &$form, FormStateInte
     $api_call = YoutubeApiSearchService::curlCall($config->get('yt_api_url') . '?part=snippet&key=' . $yotubeApiKey);
     if (isset($api_call['error'])) {
       $form_state->setErrorByName('yt_api_key',
-        t('API Error: ') . $api_call['error']['code'] . ' ' . $api_call['error']['message']);
+        t('API Error: ') . $api_call['error']['code'] . ' - ' . strip_tags($api_call['error']['message']));
     }
   }
 }
