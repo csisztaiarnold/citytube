@@ -76,7 +76,7 @@ final class CityTubeController extends ControllerBase {
       $markup .= $population_result['new_videos'] === 0 ? 'No new videos.' : $population_result['new_videos'] . ' new video(s) submitted.';
     }
     else {
-      $markup = '<h2>The API call was unsuccessful.</h2> Please check if your API key is valid or your daily quota isn\'t exceeded';
+      $markup = $population_result['api_call'];
     }
     return [
       '#markup' => $markup,
