@@ -9,7 +9,7 @@ id: node.citytube_video.field_published
 field_name: field_published
 entity_type: node
 bundle: citytube_video
-label: 'Published'
+label: 'Published At'
 description: 'The YouTube video publishing time.'
 required: false
 translatable: false
