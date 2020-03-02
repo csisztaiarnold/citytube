@@ -2,7 +2,7 @@
 
 A Drupal module for creating nodes from YouTube videos which are related to a specific location and the surrounding area.
 
-##What does this module do?
+## What does this module do?
 
 - Finds all the videos based on geolocation settings (latitude and longitude).
 - Finds all the videos based on location name (basically just a search query).
