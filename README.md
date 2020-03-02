@@ -1,12 +1,12 @@
 ![CityTube Logo](docs_assets/citytube_logo.svg) 
 
-A Drupal module for displaying videos from YouTube which are related to a specific area.
+A Drupal module for creating nodes from YouTube videos which are related to a specific location and the surrounding area.
 
-What does this module do?
+##What does this module do?
 
-- Finds all the videos based on geolocation settings (latitude and longitude)
-- Finds all the videos based on location name (basically just a search query)
-- Stores the location as a taxonomy (`cities`) term
+- Finds all the videos based on geolocation settings (latitude and longitude).
+- Finds all the videos based on location name (basically just a search query).
+- Stores the location as a taxonomy (`cities`) term.
 - Creates a node from the video, and stores:
 	- Video ID in `field_video_id`
 	- Video Title in `title`
@@ -26,7 +26,7 @@ What does this module do?
 ```
 Szeged|46.2327035,20.0003864|30
 Pécs|46.0777116,18.180542|30
-Debrecen|47.5308291,21.5201,11|30
+Debrecen|47.5308291,21.5201|30
 ```
 
 ![CityTube Settings](docs_assets/settings.png) 
