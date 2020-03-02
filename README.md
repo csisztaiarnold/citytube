@@ -2,6 +2,11 @@
 
 A Drupal module for creating nodes from YouTube videos which are related to a specific location and the surrounding area.
 
+## Requirements
+
+- Drupal 8.x
+- A YouTube Search API key
+
 ## What does this module do?
 
 - Finds all the YouTube videos based on geolocation settings (latitude and longitude), if set by the video creator.
@@ -45,8 +50,8 @@ Debrecen|47.5308291,21.5201|30
 - Retrieving older results (based on the next page token).
 - Think of a good cron solution for an automatic, periodical API call.
 - ~~Configuration link on the module list.~~
-- Frontend theme.
-  - Page layout.
+- Frontend theme (currently in the making, check https://github.com/csisztaiarnold/citytube_theme)
+  - Global page layout.
   - Menu.
   - Post preview layout.
   - Post page layout.
