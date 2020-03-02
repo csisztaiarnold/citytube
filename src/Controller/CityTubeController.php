@@ -72,8 +72,8 @@ final class CityTubeController extends ControllerBase {
   public function manualApiCallAction() {
     $population_result = $this->youtubeApiSearchService->populateNodes();
     if ($population_result['api_call'] === 'success') {
-      $markup = '<h2>The API call was successful.</h2>';
-      $markup .= $population_result['new_videos'] === 0 ? 'No new videos.' : $population_result['new_videos'] . ' new video(s) submitted.';
+      $markup = '<h2>' . t('The API call was successful.') . '</h2>';
+      $markup .= $population_result['new_videos'] === 0 ? t('No new videos.') : t('New video(s) submitted: ') . $population_result['new_videos'];
     }
     else {
       $markup = $population_result['api_call'];

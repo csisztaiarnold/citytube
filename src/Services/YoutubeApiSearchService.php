@@ -23,14 +23,14 @@ class YoutubeApiSearchService {
   /**
    * The entity type manager.
    *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
+   * @var EntityTypeManagerInterface
    */
   protected $entityTypeManager;
 
   /**
    * The state storage service.
    *
-   * @var \Drupal\Core\State\StateInterface
+   * @var StateInterface
    */
   protected $state;
 
@@ -39,9 +39,9 @@ class YoutubeApiSearchService {
    *
    * @param ConfigFactory $configFactory
    * The configuration factory.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   * @param EntityTypeManagerInterface $entityTypeManager
    * The entity type manager.
-   * @param \Drupal\Core\State\StateInterface $state
+   * @param StateInterface $state
    * The state storage service.
    */
   public function __construct(ConfigFactory $configFactory, EntityTypeManagerInterface $entityTypeManager, StateInterface $state) {
@@ -117,6 +117,7 @@ class YoutubeApiSearchService {
               'field_channel_id' => $item['snippet']['channelId'],
               'field_thumbnail_url' => $item['snippet']['thumbnails']['high']['url'],
               'field_published' => substr($item['snippet']['publishedAt'], 0, -5),
+              'status' => 0,
               'field_city' => [
                 'target_id' => $term->id(),
               ],
@@ -135,7 +136,7 @@ class YoutubeApiSearchService {
     }
     else {
       return [
-        'api_call' => 'error',
+        'api_call' => t('Make sure that your API key is valid and you have not exceeded your daily quota.'),
         'new_videos' => 0,
       ];
     }
