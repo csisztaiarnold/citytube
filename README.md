@@ -5,7 +5,7 @@ A Drupal module for creating nodes from YouTube videos which are related to a sp
 ## Requirements
 
 - Drupal 8.x
-- A YouTube Search API key
+- [A YouTube Search API key](https://developers.google.com/youtube/v3/getting-started)
 
 ## What does this module do?
 
