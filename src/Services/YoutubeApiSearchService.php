@@ -59,7 +59,7 @@ class YoutubeApiSearchService {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function populateTerms(string $term_name): void {
+  public function populateTerms(string $term_name) {
     // Term exists?
     $term = $this->entityTypeManager->getStorage('taxonomy_term')
       ->loadByProperties([
