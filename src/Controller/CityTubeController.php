@@ -56,16 +56,6 @@ final class CityTubeController extends ControllerBase {
   }
 
   /**
-   * Shows content.
-   *
-   */
-  public function content() {
-    return [
-      '#markup' => '',
-    ];
-  }
-
-  /**
    * Calls the API manually.
    *
    */
