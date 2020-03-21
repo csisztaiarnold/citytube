@@ -1,11 +1,3 @@
-citytube.content:
-  path: '/citytube'
-  defaults:
-    _controller: '\Drupal\citytube\Controller\CityTubeController::content'
-    _title: 'CityTube'
-  requirements:
-    _permission: 'access content'
-
 citytube.manual_api_call:
   path: '/citytube/manual_api_call'
   defaults:

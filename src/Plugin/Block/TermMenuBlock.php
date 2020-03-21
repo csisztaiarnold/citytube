@@ -56,10 +56,18 @@ class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
    */
   public function build()
   {
-    $term_menu_data = 'term menu data';
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('cities');
+    $term_list = [];
+    foreach ($terms as $term) {
+      $term_list[] = [
+        'name' => $term->name,
+        'tid' => $term->tid,
+      ];
+    }
+
     return [
       '#theme' => 'term_menu_block',
-      '#term_menu_data' => $term_menu_data,
+      '#term_list' =>  $term_list,
     ];
   }
 

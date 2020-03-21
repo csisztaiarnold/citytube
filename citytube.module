@@ -38,7 +38,7 @@ function citytube_theme($existing, $type, $theme, $path)
   return [
     'term_menu_block' => [
       'variables' => [
-        'term_menu_data' => [],
+        'term_list' => [],
       ],
     ],
   ];

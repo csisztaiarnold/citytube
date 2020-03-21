@@ -1,1 +1,5 @@
-sdifkj dhsakj hsajkdh asjkskdh
+<ul>
+{% for term in term_list %}
+  <li><a href="{{ path('entity.taxonomy_term.canonical', {'taxonomy_term': term.tid }) }}" title="{{ term.name }}">{{ term.name }}</a></li>
+{% endfor %}
+</ul>
