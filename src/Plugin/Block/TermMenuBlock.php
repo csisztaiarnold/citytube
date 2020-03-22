@@ -16,8 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   category = @Translation("Term Menu Block"),
  * )
  */
-class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
-{
+class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
    * The entity type manager.
@@ -32,8 +31,7 @@ class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
    * @param EntityTypeManagerInterface $entityTypeManager
    * The entity type manager.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entityTypeManager)
-  {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entityTypeManager) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
     $this->entityTypeManager = $entityTypeManager;
   }
@@ -41,8 +39,7 @@ class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
   /**
    * @inheritDoc
    */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition)
-  {
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
     return new static(
       $configuration,
       $plugin_id,
@@ -54,9 +51,9 @@ class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
   /**
    * {@inheritdoc}
    */
-  public function build()
-  {
-    $terms = $this->entityTypeManager->getStorage('taxonomy_term')->loadTree('cities');
+  public function build() {
+    $terms = $this->entityTypeManager->getStorage('taxonomy_term')
+      ->loadTree('cities');
     $term_list = [];
     foreach ($terms as $term) {
       $term_list[] = [
@@ -67,7 +64,7 @@ class TermMenuBlock extends BlockBase implements ContainerFactoryPluginInterface
 
     return [
       '#theme' => 'term_menu_block',
-      '#term_list' =>  $term_list,
+      '#term_list' => $term_list,
     ];
   }
 
