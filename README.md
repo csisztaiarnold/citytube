@@ -50,7 +50,7 @@ Debrecen|47.5308291,21.5201|30
 - Retrieving older results from the API (based on the next page token).
 - Think of a good cron solution for an automatic, periodical API call.
 - ~~Configuration link on the module list.~~
-- Current plan for the frontend: React.
+- Current plan for the frontend: [React](https://github.com/csisztaiarnold/citytube_frontend).
 - Log error messages.
 - Tests.
 
