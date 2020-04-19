@@ -49,14 +49,10 @@ Debrecen|47.5308291,21.5201|30
 ## TODO
 
 - ~~Populating the nodes.~~
-- Retrieving older results (based on the next page token).
+- Retrieving older results from the API (based on the next page token).
 - Think of a good cron solution for an automatic, periodical API call.
 - ~~Configuration link on the module list.~~
-- Frontend theme (currently in the making, check https://github.com/csisztaiarnold/citytube_theme)
-  - Global page layout.
-  - Menu.
-  - Post preview layout.
-  - Post page layout.
+- Current plan for the frontend: [React](https://github.com/csisztaiarnold/citytube_frontend).
 - Log error messages.
 - Tests.
 
