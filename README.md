@@ -36,13 +36,15 @@ Debrecen|47.5308291,21.5201|30
 
 ![CityTube Settings](docs_assets/settings.png)
 
-- To manually run the API call, go to this URL while you are logged in as administrator: `/citytube/manual_api_call`
+- To manually run the YouTube API call, go to this URL while you are logged in as administrator: `/citytube/manual_api_call`
 
   In case of errors, you will hopefully see a message here about what went wrong.
 
 - Of course, every imported video has its own content node, list them by visiting this URL: `/admin/content?title=&type=citytube_video`
 
 - The videos are unpublished by default, so you'll have to edit and publish them manually. There is usually a lot of junk in the search results, so it's not the best idea to publish them by default.
+
+- In case your frontend is decoupled from Drupal, you could use the JSON:API module for exposing the API endpoints, and the CORS module for cross-origin resource sharing. Both are part of the Drupal core.
 
 ## TODO
 
